@@ -1,19 +1,25 @@
 {
   "name": "hen-maryuma-design",
   "version": "1.0.0",
-  "description": "Website",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
+    
   },
+ 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yudahatam/hen-maryuma-design.git"
   },
-  "author": "Yuda-Hatam Chen-Hess",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/yudahatam/hen-maryuma-design/issues"
   },
-  "homepage": "https://github.com/yudahatam/hen-maryuma-design#readme"
+  "homepage": "https://github.com/yudahatam/hen-maryuma-design#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "start": "^5.1.0"
+  }
 }

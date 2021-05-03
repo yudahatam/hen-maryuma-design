@@ -6,4 +6,4 @@ app.use('/static', express.static('public'));
 app.get('/', function (req, res) {
     return res.send("Hello Yuda");
 })
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`)); 
