@@ -1,11 +1,19 @@
-//nodeJs Section
-
 var express = require('express');
-// var fs =require('fs')
 var path = require('path');
 var app = express();
-var bodyParser = require('body-parser');
-var nodeMailer = require('nodemailer');
+var PORT = process.env.PORT || 8080
+// var bodyParser = require('body-parser');
+// var nodeMailer = require('nodemailer');
+app.use('/static', express.static('public'));
+app.get('/', function (req, res) {
+    return res.send("Hello Yuda");
+})
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+
+
+
+
 
 // var transporter = nodeMailer.createTransport({
 //     service:'outlook', auth:{
@@ -15,16 +23,12 @@ var nodeMailer = require('nodemailer');
 // });
 // var urlEncodedParser = bodyParser.urlencoded({extended:false});
 
-app.use('/static', express.static('public'));
 
 
 /*
     default localhost:8080 redirecting to log-in page
 */
-app.get('/', function (req, res) {
-    return res.send("Hello Yuda");
-//   return res.redirect('/log-in');
-})
+
 
 
 // /*
@@ -48,5 +52,5 @@ app.get('/', function (req, res) {
 //     res.sendFile(path.join(__dirname+'/contact_page.html'));
 // }) 
 
-app.listen(8080)
-console.log('Server started! At http://localhost:8080');
+// app.listen(8080)
+// console.log('Server started! At http://localhost:8080');
