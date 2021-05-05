@@ -1,51 +1,99 @@
-var express = require('express');
+var express = require('express');   
 var path = require('path');
 var app = express();
 var fs=require('fs');
 var bodyParser = require('body-parser');
-const { finished } = require('stream');
+//Port of web or 8080 in localHOST
 var PORT = process.env.PORT || 8080
+//Used to parse data on POST
 var urlEncodedParser = bodyParser.urlencoded({extended:false});
+//Use public directory as /static in server
 app.use('/static', express.static('public'));
+
+/*-----START-----
+Variable and function to count the amount of registered request in the DB*/
+var i=0;
+function countReq(){
+    var data=fs.readFileSync('request.json');
+    if(data!="")
+        var msg=JSON.parse(data);
+    else return 0;
+    for(j in msg)
+        i++;
+}
+countReq();
+/*-----END-----*/
+
+//Default of the website go to Home page
 app.get('/', function (req, res) {
     return res.redirect('/index')
 })
+//Home page
 app.get('/index', function (req, res) {
     res.sendFile(path.join(__dirname+'/index.html'));
 })
+//About page
 app.get('/about', function (req, res) {
     res.sendFile(path.join(__dirname+'/about.html'));
 })
+//Gallery page
 app.get('/gallery', function (req, res) {
     res.sendFile(path.join(__dirname+'/gallery.html'));
 })
+//Reviews page
 app.get('/reviews', function (req, res) {
     res.sendFile(path.join(__dirname+'/Reviews.html'));
 })
+//Contact page
 app.get('/contact-us', function (req, res) {
     res.sendFile(path.join(__dirname+'/contact.html'));
 })
+//Proccess post request after submiting form in contat page
 app.post('/submitForm',urlEncodedParser,function(req,res){
-    // var msg="name:"+req.body.name+"\nemail"+req.body.email+"\nphone"+req.body.phone+"\nmessage"+req.body.message
-    // var data =fs.readFile('request.json',finishedRead);
-    // var msg= JSON.parse(data);
-    var msg=JSON.stringify(req.body,null,2)
-    // fs.writeFile('request.json',msg,finishedWrite);
-    fs.appendFile('request.json',msg,finishedWrite);
+    
+    var msgSave=""  //text to write to file
+    var data=fs.readFileSync('request.json');   //Read DB JSON file
+    var body=JSON.stringify(req.body,null,2);   //Stringify the form information
+    
+    /*Remove initial sign that interfere with parse*/
+    const UTF8_BOM = "\u{FEFF}";                    
+    if( data.includes(UTF8_BOM)){
+        data.subarray(1);
+    }
+
+    if(data!=""){   //In case the DB isn't empty(usually)
+        var msg=JSON.parse(data);   //Parse the data from DB
+        msgSave=JSON.stringify(msg,null,2); //Stringify the msg to work with
+        msgSave=msgSave.slice(0,msgSave.length-1);  //Remove final "}"
+        msgSave+=",\"request "+i+"\" : "+body+"}";  //Add next request according to JSON pattern
+    }
+    else    //In case the DB is empty(only on deletion of request by admin)
+        msgSave+="{\"request "+i+"\" : "+body+"}";  //Add next request according to JSON pattern
+    
+    
+    fs.writeFile('request.json',msgSave,finishedWrite); //Write the data to the file and notifiy console when finished
     function finishedWrite(err){
         console.log("Writing to request.json has been successfull");
     }
-    function finishedRead(err){
-        console.log("Reading from requset.json has been succesfull");
-    }
-    res.send("yuda");
+    i++;    //Advance the iterator of the amount of requests in server
+    /*Display wanted page(currently display the requests)*/
+    res.send(msgSave);
 })
+/*Stub url for personal uses*/
 app.get('/yuda',function(req,res){
-    var data=fs.readFile('request.json',eden);
-    var msg=JSON.parse(data);
-    console.log(msg);
-    function eden(err){
-        console.log("yuda");
+    var data=fs.readFileSync('request.json');
+    /*Remove initial sign that interfere with parse*/
+    const UTF8_BOM = "\u{FEFF}";
+    var j=0;
+    if( data.includes(UTF8_BOM)){
+        data.subarray(1);
     }
+    if(data!=""){
+        var msg=JSON.parse(data);
+        console.log(i);
+    }
+    res.send(msg);
 })
+/*Make web listen on port 8080 in case of localhost and port of website in case of online(notifiy console on start)*/
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`)); 
+
