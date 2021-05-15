@@ -1,6 +1,7 @@
 var express = require('express');   
 var path = require('path');
 var app = express();
+const { Client } = require('pg');
 var fs=require('fs');
 var bodyParser = require('body-parser');
 //Port of web or 8080 in localHOST
@@ -9,6 +10,15 @@ var PORT = process.env.PORT || 8080
 var urlEncodedParser = express.urlencoded({extended:false});
 //Use public directory as /static in server
 app.use('/static', express.static('public'));
+
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
+  });
+  client.connect();
+
 
 /*-----START-----
 Variable and function to count the amount of registered request in the DB*/
@@ -102,18 +112,10 @@ function UploadDB() {
 
 /*Stub url for personal uses*/
 app.get('/yuda',function(req,res){
-    var data=fs.readFileSync('request.json');
-    /*Remove initial sign that interfere with parse*/
-    const UTF8_BOM = "\u{FEFF}";
-    var j=0;
-    if( data.includes(UTF8_BOM)){
-        data.subarray(1);
-    }
-    if(data!=""){
-        var msg=JSON.parse(data);
-        console.log(i);
-    }
-    res.send(msg);
+    client.query("select * from requests;",function (err,result) {
+        res.json(result.rows);
+    })
+    
 })
 /*Make web listen on port 8080 in case of localhost and port of website in case of online(notifiy console on start)*/
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`)); 
