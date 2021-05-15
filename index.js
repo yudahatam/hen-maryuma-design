@@ -79,6 +79,27 @@ app.post('/submitForm',urlEncodedParser,function(req,res){
     /*Display wanted page(currently display the requests)*/
     res.send(msgSave);
 })
+
+function UploadDB() {
+    module.exports ={
+        DB:{
+            client:"pg",
+            connection: process.env.DATABASE_URL,
+            pool:{
+                min:2,
+                max:10
+            },
+            migrations:{
+                tableName:"DB_migrations",
+                directory:"./migrations",
+            }
+        }
+    }
+
+    }
+
+
+
 /*Stub url for personal uses*/
 app.get('/yuda',function(req,res){
     var data=fs.readFileSync('request.json');
