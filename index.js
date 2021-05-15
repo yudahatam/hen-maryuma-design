@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 //Port of web or 8080 in localHOST
 var PORT = process.env.PORT || 8080
 //Used to parse data on POST
-var urlEncodedParser = bodyParser.urlencoded({extended:false});
+var urlEncodedParser = express.urlencoded({extended:false});
 //Use public directory as /static in server
 app.use('/static', express.static('public'));
 
