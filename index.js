@@ -64,33 +64,41 @@ app.get('/contact-us', function (req, res) {
 })
 //Proccess post request after submiting form in contat page
 app.post('/submitForm',urlEncodedParser,function(req,res){
+    var name=req.body.name;
+    var email=req.body.email;
+    var phone=req.body.phone;
+    var message=req.body.message;
+
+    // var msgSave=""  //text to write to file
+    // var data=fs.readFileSync('request.json');   //Read DB JSON file
+    //  var body=JSON.stringify(req.body,null,2);   //Stringify the form information
     
-    var msgSave=""  //text to write to file
-    var data=fs.readFileSync('request.json');   //Read DB JSON file
-    var body=JSON.stringify(req.body,null,2);   //Stringify the form information
-    
-    /*Remove initial sign that interfere with parse*/
-    const UTF8_BOM = "\u{FEFF}";                    
-    if( data.includes(UTF8_BOM)){
-        data.subarray(1);
-    }
-    if(data!=""){   //In case the DB isn't empty(usually)
-        var msg=JSON.parse(data);   //Parse the data from DB
-        msgSave=JSON.stringify(msg,null,2); //Stringify the msg to work with
-        msgSave=msgSave.slice(0,msgSave.length-1);  //Remove final "}"
-        msgSave+=",\"request "+i+"\" : "+body+"}";  //Add next request according to JSON pattern
-    }
-    else    //In case the DB is empty(only on deletion of request by admin)
-        msgSave+="{\"request "+i+"\" : "+body+"}";  //Add next request according to JSON pattern
+    // /*Remove initial sign that interfere with parse*/
+    // const UTF8_BOM = "\u{FEFF}";                    
+    // if( data.includes(UTF8_BOM)){
+    //     data.subarray(1);
+    // }
+    // if(data!=""){   //In case the DB isn't empty(usually)
+    //     var msg=JSON.parse(data);   //Parse the data from DB
+    //     msgSave=JSON.stringify(msg,null,2); //Stringify the msg to work with
+    //     msgSave=msgSave.slice(0,msgSave.length-1);  //Remove final "}"
+    //     msgSave+=",\"request "+i+"\" : "+body+"}";  //Add next request according to JSON pattern
+    // }
+    // else    //In case the DB is empty(only on deletion of request by admin)
+    //     msgSave+="{\"request "+i+"\" : "+body+"}";  //Add next request according to JSON pattern
     
     
-    fs.writeFile('request.json',msgSave,finishedWrite); //Write the data to the file and notifiy console when finished
-    function finishedWrite(err){
-        console.log("Writing to request.json has been successfull");
-    }
-    i++;    //Advance the iterator of the amount of requests in server
-    /*Display wanted page(currently display the requests)*/
-    res.send(msgSave);
+    // fs.writeFile('request.json',msgSave,finishedWrite); //Write the data to the file and notifiy console when finished
+    // function finishedWrite(err){
+    //     console.log("Writing to request.json has been successfull");
+    // }
+    // i++;    //Advance the iterator of the amount of requests in server
+    // /*Display wanted page(currently display the requests)*/
+    // res.send(msgSave);
+    client.query("insert into requests (name,email,phone,message) values('"+name+"','"+email+"','"+phone+"','"+message+"');");
+    client.query("select * from requests;",function (err,result) {
+        res.json(result.rows);
+    })
 })
 
 /*Stub url for personal uses*/
@@ -105,10 +113,6 @@ app.get('/yuda',function(req,res){
     client.query("select * from requests;",function (err,result) {
         res.json(result.rows);
     })
-})
-app.get('/y',function (req,res) {
-    
-    
 })
 /*Make web listen on port 8080 in case of localhost and port of website in case of online(notifiy console on start)*/
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`)); 
