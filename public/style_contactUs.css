@@ -28,11 +28,12 @@
     color: #0062cc;
 }
 .contact-form .btnContact {
+    font-family: 'Heebo', sans-serif;
     width: 50%;
     border: none;
     border-radius: 1rem;
     padding: 1.5%;
-    background: #dc3545;
+    background: #b27e29;
     font-weight: 600;
     color: #fff;
     cursor: pointer;

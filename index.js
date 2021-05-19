@@ -62,54 +62,26 @@ app.get('/reviews', function (req, res) {
 app.get('/contact-us', function (req, res) {
     res.sendFile(path.join(__dirname+'/contact.html'));
 })
+//DB interaction page
+app.get('/dbi', function (req, res) {
+    res.sendFile(path.join(__dirname+'/DBI.html'));
+})
 //Proccess post request after submiting form in contat page
 app.post('/submitForm',urlEncodedParser,function(req,res){
     var name=req.body.name;
     var email=req.body.email;
     var phone=req.body.phone;
     var message=req.body.message;
-
-    // var msgSave=""  //text to write to file
-    // var data=fs.readFileSync('request.json');   //Read DB JSON file
-    //  var body=JSON.stringify(req.body,null,2);   //Stringify the form information
-    
-    // /*Remove initial sign that interfere with parse*/
-    // const UTF8_BOM = "\u{FEFF}";                    
-    // if( data.includes(UTF8_BOM)){
-    //     data.subarray(1);
-    // }
-    // if(data!=""){   //In case the DB isn't empty(usually)
-    //     var msg=JSON.parse(data);   //Parse the data from DB
-    //     msgSave=JSON.stringify(msg,null,2); //Stringify the msg to work with
-    //     msgSave=msgSave.slice(0,msgSave.length-1);  //Remove final "}"
-    //     msgSave+=",\"request "+i+"\" : "+body+"}";  //Add next request according to JSON pattern
-    // }
-    // else    //In case the DB is empty(only on deletion of request by admin)
-    //     msgSave+="{\"request "+i+"\" : "+body+"}";  //Add next request according to JSON pattern
-    
-    
-    // fs.writeFile('request.json',msgSave,finishedWrite); //Write the data to the file and notifiy console when finished
-    // function finishedWrite(err){
-    //     console.log("Writing to request.json has been successfull");
-    // }
-    // i++;    //Advance the iterator of the amount of requests in server
-    // /*Display wanted page(currently display the requests)*/
-    // res.send(msgSave);
     client.query("insert into requests (name,email,phone,message) values('"+name+"','"+email+"','"+phone+"','"+message+"');");
-    client.query("select * from requests;",function (err,result) {
-        res.json(result.rows);
-    })
+    // client.query("select * from requests;",function (err,result) {
+    //     res.json(result.rows);
+    // })
+    return res.redirect('/contact-us');
+
 })
 
 /*Stub url for personal uses*/
 app.get('/yuda',function(req,res){
-    var ch1="yuda";
-    var ch2="chen@walla.com";
-    var ch3="0528790549";
-    var ch4="arnav";
-    var ch5=1;
-    client.query("insert into requests (name,email,phone,message) values('"+ch1+"','"+ch2+"','"+ch3+"','"+ch4+"');");
-    client.query("insert into requests (name,email,phone,message) values('ira','asd@yuda.yuda','045454528790549','gjlg yuda hjlhjl yuda');");
     client.query("select * from requests;",function (err,result) {
         res.json(result.rows);
     })

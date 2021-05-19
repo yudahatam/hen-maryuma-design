@@ -7,10 +7,13 @@ body{
     
 }
 a{
-    color: #0062cc;
+    color: black;
+}
+a:hover{
+    color: #b27e29;
 }
 li{
-    font-family: 'Allan';
+    font-family: 'Heebo', sans-serif;
 }
 
 /*
@@ -21,12 +24,12 @@ Private Css for Index Page
 }
 
 .mainHead{/*Class for headline*/
-    font-family: 'Herr Von Muellerhoff';
+    font-family: 'Heebo', sans-serif;
     font-size: 6em
     
 }
  .subHead{/*Class for subHeadline*/
-     font-family: 'Allan';
+    font-family: 'Heebo', sans-serif;
     font-size: 2em;
 } 
 .d-block{/*Class for carousel to be in center*/
