@@ -66,6 +66,12 @@ app.get('/contact-us', function (req, res) {
 app.get('/dbi', function (req, res) {
     res.sendFile(path.join(__dirname+'/DBI.html'));
 })
+//Process to bring data from DB into the page DBI.html to display DB capablities
+app.get('/bringData',function(req,res){
+    client.query("select * from requests;",function (err,result) {
+        res.json(result.rows);
+    })
+})
 //Proccess post request after submiting form in contat page
 app.post('/submitForm',urlEncodedParser,function(req,res){
     var name=req.body.name;

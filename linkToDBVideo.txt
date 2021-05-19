@@ -1,6 +1,8 @@
-https://www.youtube.com/watch?v=NSYSXU2j6nE
+Link about DB with heroku: https://www.youtube.com/watch?v=NSYSXU2j6nE
+Link about working with JSON in html printing: https://stackoverflow.com/questions/60485717/print-js-object-in-a-div-with-new-line-instead-of-n
 command to reset id counter in DB: alter sequence requests_id_seq restart with 1;
 command to show values: SELECT * FROM **TABLE**;
 command to delete **all** values from table: delete from **TABLE**;
 command to insert values to table: insert into **TABLE**(**FIELD1,FIELD2**) values(value1,value2);
 command to access heroku DB from terminal: heroku psql -a hen-maryuma
+
