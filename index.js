@@ -93,28 +93,15 @@ app.post('/submitForm',urlEncodedParser,function(req,res){
     res.send(msgSave);
 })
 
-function UploadDB() {
-    module.exports ={
-        DB:{
-            client:"pg",
-            connection: process.env.DATABASE_URL,
-            pool:{
-                min:2,
-                max:10
-            },
-            migrations:{
-                tableName:"DB_migrations",
-                directory:"./migrations",
-            }
-        }
-    }
-
-    }
-
-
-
 /*Stub url for personal uses*/
 app.get('/yuda',function(req,res){
+    var ch1="yuda";
+    var ch2="chen@walla.com";
+    var ch3="0528790549";
+    var ch4="arnav";
+    var ch5=1;
+    client.query("insert into requests (id,name,email,phone,message) values("+ch5+","+ch1+","+ch2+","+ch3+","+ch4+");");
+    client.query("insert into requests (id,name,email,phone,message) values(4,'ira','asd@yuda.yuda','045454528790549','gjlg yuda hjlhjl yuda');");
     client.query("select * from requests;",function (err,result) {
         res.json(result.rows);
     })
