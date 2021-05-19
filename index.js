@@ -103,7 +103,7 @@ app.get('/yuda',function(req,res){
     client.query("insert into requests (name,email,phone,message) values('"+ch1+"','"+ch2+"','"+ch3+"','"+ch4+"');");
     client.query("insert into requests (name,email,phone,message) values('ira','asd@yuda.yuda','045454528790549','gjlg yuda hjlhjl yuda');");
     client.query("select * from requests;",function (err,result) {
-        res.json(result.rows);
+        res.json(JSON.stringify(result.rows,null,2));
     })
 })
 /*Make web listen on port 8080 in case of localhost and port of website in case of online(notifiy console on start)*/
