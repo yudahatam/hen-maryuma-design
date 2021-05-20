@@ -11,6 +11,7 @@ small{
 }
 p{
     font-family: 'Heebo', sans-serif;
+    font-weight: bolder;
 }
 
 @media (min-width: 768px){
