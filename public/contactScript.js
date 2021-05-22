@@ -75,3 +75,17 @@ function contactUsValidation(){
         form.submit();
     }
 }
+//multer uploading files
+function upload() {
+    e.preventDefault();
+    const files = document.getElementById("files");
+    const formData = new FormData();
+    formData.append("files",files.files[0]);
+    fetch("/yuda", {
+        method: 'post',
+        body: formData
+    })
+        .then((res) => console.log(res))
+        .catch((err) => ("Error occured", err));
+}
+    

@@ -6,3 +6,7 @@ command to delete **all** values from table: delete from **TABLE**;
 command to insert values to table: insert into **TABLE**(**FIELD1,FIELD2**) values(value1,value2);
 command to access heroku DB from terminal: heroku psql -a hen-maryuma
 
+
+
+
+uploading files:https://blog.logrocket.com/uploading-files-using-multer-and-node-js/

@@ -1,4 +1,6 @@
 var express = require('express');   
+const multer = require('multer');   ///multer
+const upload= multer({dest:"/uploads"}); //multer
 var path = require('path');
 var app = express();
 const { Client } = require('pg');
@@ -10,6 +12,8 @@ var PORT = process.env.PORT || 8080
 var urlEncodedParser = express.urlencoded({extended:false});
 //Use public directory as /static in server
 app.use('/static', express.static('public'));
+
+
 
 /*-----START-----
 client representing the website to declare and connect as  a client to the postgresql database
@@ -87,10 +91,10 @@ app.post('/submitForm',urlEncodedParser,function(req,res){
 })
 
 /*Stub url for personal uses*/
-app.get('/yuda',function(req,res){
-    client.query("select * from requests;",function (err,result) {
-        res.json(result.rows);
-    })
+app.post('/yuda',function(req,res){
+    console.log(req.body);
+    console.log(req.files);
+    res.json({ message: "Successfully uploaded files" });
 })
 /*Make web listen on port 8080 in case of localhost and port of website in case of online(notifiy console on start)*/
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`)); 
