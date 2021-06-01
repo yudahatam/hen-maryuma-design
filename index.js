@@ -1,6 +1,6 @@
 var express = require('express');   
-const multer = require('multer');   ///multer
-const upload= multer({dest:"/uploads"}); //multer
+// const multer = require('multer');   ///multer
+// const upload= multer({dest:"/uploads"}); //multer
 var path = require('path');
 var app = express();
 const { Client } = require('pg');
