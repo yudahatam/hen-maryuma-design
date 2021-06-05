@@ -1,6 +1,4 @@
 var express = require('express');   
-// const multer = require('multer');   ///multer
-// const upload= multer({dest:"/uploads"}); //multer
 var path = require('path');
 var app = express();
 const { Client } = require('pg');
@@ -26,21 +24,6 @@ const client = new Client({
   });
   client.connect();
   /*-----END-----*/
-
-
-/*-----START-----
-Variable and function to count the amount of registered request in the DB*/
-var i=0;
-function countReq(){
-    var data=fs.readFileSync('request.json');
-    if(data!="")
-        var msg=JSON.parse(data);
-    else return 0;
-    for(j in msg)
-        i++;
-}
-countReq();
-/*-----END-----*/
 
 //Default of the website go to Home page
 app.get('/', function (req, res) {
@@ -83,9 +66,6 @@ app.post('/submitForm',urlEncodedParser,function(req,res){
     var phone=req.body.phone;
     var message=req.body.message;
     client.query("insert into requests (name,email,phone,message) values('"+name+"','"+email+"','"+phone+"','"+message+"');");
-    // client.query("select * from requests;",function (err,result) {
-    //     res.json(result.rows);
-    // })
     return res.redirect('/contact-us');
 
 })
