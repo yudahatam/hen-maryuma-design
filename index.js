@@ -49,16 +49,6 @@ app.get('/reviews', function (req, res) {
 app.get('/contact-us', function (req, res) {
     res.sendFile(path.join(__dirname+'/contact.html'));
 })
-//DB interaction page
-app.get('/dbi', function (req, res) {
-    res.sendFile(path.join(__dirname+'/DBI.html'));
-})
-//Process to bring data from DB into the page DBI.html to display DB capablities
-app.get('/bringData',function(req,res){
-    client.query("select * from requests;",function (err,result) {
-        res.json(result.rows);
-    })
-})
 //Proccess post request after submiting form in contat page
 app.post('/submitForm',urlEncodedParser,function(req,res){
     var name=req.body.name;
@@ -67,15 +57,8 @@ app.post('/submitForm',urlEncodedParser,function(req,res){
     var message=req.body.message;
     client.query("insert into requests (name,email,phone,message) values('"+name+"','"+email+"','"+phone+"','"+message+"');");
     return res.redirect('/contact-us');
-
 })
 
-/*Stub url for personal uses*/
-app.post('/yuda',function(req,res){
-    console.log(req.body);
-    console.log(req.files);
-    res.json({ message: "Successfully uploaded files" });
-})
 /*Make web listen on port 8080 in case of localhost and port of website in case of online(notifiy console on start)*/
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`)); 
 
