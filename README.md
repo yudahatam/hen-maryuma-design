@@ -1,4 +1,4 @@
-# hen maryuma design
+# Hen Maryuma Design
 This project is a website for graphic designer Hen Maryuma.
 
 This project was written in HTML,CSS using boostrap and vanilla JS.
