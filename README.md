@@ -1,11 +1,11 @@
 # Hen Maryuma Design
+Authors Yuda Hatam and Chen Hess
+
 This project is a website for graphic designer Hen Maryuma.
 
 This project was written in HTML,CSS using boostrap and vanilla JS.
 
 Home page: https://hen-maryuma.herokuapp.com/index
-
-In collaboration with Hen Hess
 
 hen-maryuma-design/public/image/
 
