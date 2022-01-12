@@ -9,4 +9,4 @@ Home page: https://hen-maryuma.herokuapp.com/index
 
 hen-maryuma-design/public/image/
 
-![Alt text](https://github.com/yudahatam/hen-maryuma-design/blob/21a85e349fa652eed418333d2ca01c6de4ea33e7/public/image/Home%20Page.jpg)
+![Home Page](https://github.com/yudahatam/hen-maryuma-design/blob/21a85e349fa652eed418333d2ca01c6de4ea33e7/public/image/Home%20Page.jpg)
